@@ -14,11 +14,17 @@ jobs:
       fail-fast: false
       matrix:
         include:
+          - osversion: ubuntu-24.04
+            arch: "x64"
+            force_system_binary: 0
           - osversion: ubuntu-20.04
             arch: "x64"
             force_system_binary: 0
           - osversion: ubuntu-22.04
             arch: "x64"
+            force_system_binary: 0
+          - osversion: ubuntu-24.04
+            arch: "arm64"
             force_system_binary: 0
           - osversion: ubuntu-20.04
             arch: "arm64"

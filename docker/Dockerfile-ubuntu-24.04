@@ -1,0 +1,27 @@
+FROM ubuntu:24.04
+
+RUN apt-get update -qq && DEBIAN_FRONTEND="noninteractive" apt-get install -qq \
+  git \
+  wget \
+  python2 \
+  python3 \
+  python3-venv \
+  tar \
+  p7zip-full \
+  cmake \
+  software-properties-common \
+  build-essential \
+  curl zip unzip tar \  
+  pkg-config \
+  autoconf \
+  cmake \
+  ninja-build \
+  flex \
+  bison \
+  && apt-get clean -qq
+
+
+
+ADD ./entrypoint-build.sh /entrypoint.sh
+
+ENTRYPOINT ["/entrypoint.sh"]
