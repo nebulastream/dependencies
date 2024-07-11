@@ -1,0 +1,13 @@
+diff --git a/tensorflow/lite/tools/cmake/modules/abseil-cpp.cmake b/tensorflow/lite/tools/cmake/modules/abseil-cpp.cmake
+index b17f9b388d2..4b29f05e27e 100644
+--- a/tensorflow/lite/tools/cmake/modules/abseil-cpp.cmake
++++ b/tensorflow/lite/tools/cmake/modules/abseil-cpp.cmake
+@@ -24,7 +24,7 @@ OverridableFetchContent_Declare(
+   abseil-cpp
+   GIT_REPOSITORY https://github.com/abseil/abseil-cpp
+   # Sync with tensorflow/third_party/absl/workspace.bzl
+-  GIT_TAG 997aaf3a28308eba1b9156aa35ab7bca9688e9f6
++  GIT_TAG 8c0b94e793a66495e0b1f34a5eb26bd7dc672db0
+   GIT_SHALLOW TRUE
+   GIT_PROGRESS TRUE
+   PREFIX "${CMAKE_BINARY_DIR}"

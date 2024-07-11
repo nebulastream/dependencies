@@ -3,7 +3,6 @@ FROM ubuntu:24.04
 RUN apt-get update -qq && DEBIAN_FRONTEND="noninteractive" apt-get install -qq \
   git \
   wget \
-  python2 \
   python3 \
   python3-venv \
   tar \
@@ -20,7 +19,15 @@ RUN apt-get update -qq && DEBIAN_FRONTEND="noninteractive" apt-get install -qq \
   bison \
   && apt-get clean -qq
 
+RUN wget https://www.python.org/ftp/python/2.7.18/Python-2.7.18.tgz
+RUN tar xzf Python-2.7.18.tgz
+RUN cd Python-2.7.18 && ./configure --enable-optimizations && make altinstall
+RUN ln -s "/usr/local/bin/python2.7" "/usr/bin/python2"
 
+RUN rm -f /usr/bin/g++
+RUN apt-get install -y g++-14
+RUN ln -s /usr/bin/g++-14 /usr/bin/g++
+RUN g++ --version
 
 ADD ./entrypoint-build.sh /entrypoint.sh
 
