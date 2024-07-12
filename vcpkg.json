@@ -6,10 +6,69 @@
   "supports": "x64 & (linux | osx)",
   "builtin-baseline": "daa7215f3d68c2a2f2e18c398cb73dab63cda829",
   "dependencies": [
+    "z3",
+    "zeromq",
+    "cppzmq",
+    "grpc",
+    "libevent",
+    "fmt",
+    "paho-mqttpp3",
+    "mbedtls",
+    "open62541",
+    "libsodium",
+    "eigen3",
+    "gtest",
+    "benchmark",
+    "antlr4",
+    "spdlog",
+    "nesfolly",
+    "jemalloc-nes",
+    "simdjson",
+    "oatpp",
+    "cpr",
+    "nlohmann-json",
+    "tensorflow-lite",
+    "s2",
+    "cppkafka",
+    "snappy",
+    "lz4",
+    "fastlz",
+    "brotli",
     "libuuid",
-    "libhdfs3"
+    "libhdfs3",
+    {
+      "name": "libiconv",
+      "platform": "osx"
+    },
+    {
+      "name": "asio",
+      "default-features": false,
+      "features": ["openssl"],
+      "platform": "osx"
+    },
+    {
+      "name": "arrow",
+      "default-features": false,
+      "features": ["csv", "filesystem", "json", "parquet", "flight"],
+      "platform": "x64 & linux"
+    }
   ],
   "overrides": [
+    {
+      "name": "zeromq", "version": "4.3.4", "port-version": 6
+    },
+    {
+      "name": "fmt", "version": "9.1.0"
+    },
+    {
+      "name": "spdlog", "version": "1.11.0"
+    },
+    {
+      "name": "folly", "version-string": "2022.10.31.00"
+    },
+    {
+      "name": "simdjson", "version": "3.0.0"
+    },
     {
       "name": "krb5", "version": "1.21.3", "port-version": 0
     }
