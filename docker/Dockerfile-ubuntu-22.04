@@ -18,9 +18,15 @@ RUN apt-get update -qq && DEBIAN_FRONTEND="noninteractive" apt-get install -qq \
   ninja-build \
   flex \
   bison \
+  libgsasl7 \
+  libkrb5-3 \
   && apt-get clean -qq
 
+RUN apt-get install -y libc-client-dev libkrb5-dev
 
+RUN apt-get install -y libc-client-dev libgsasl7-dev
+
+RUN apt-get install -y libc-client-dev uuid-dev
 
 ADD ./entrypoint-build.sh /entrypoint.sh
 

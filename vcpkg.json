@@ -6,6 +6,12 @@
   "supports": "x64 & (linux | osx)",
   "builtin-baseline": "daa7215f3d68c2a2f2e18c398cb73dab63cda829",
   "dependencies": [
+    "libuuid",
     "libhdfs3"
+  ],
+  "overrides": [
+    {
+      "name": "krb5", "version": "1.21.3", "port-version": 0
+    }
   ]
 }
