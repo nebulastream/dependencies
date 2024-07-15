@@ -33,6 +33,7 @@ file(COPY ${SOURCE_PATH}/tensorflow/lite/ DESTINATION
         ${CURRENT_PACKAGES_DIR}/include/tensorflow/lite)
 
 file(INSTALL ${SOURCE_PATH}/LICENSE DESTINATION ${CURRENT_PACKAGES_DIR}/share/tensorflow-lite-c RENAME copyright)
+file(INSTALL ${SOURCE_PATH}/LICENSE DESTINATION ${CURRENT_PACKAGES_DIR}/share/tensorflow-lite RENAME copyright)
 
 file(COPY ${CMAKE_CURRENT_LIST_DIR}/TensorflowLiteCConfig.cmake DESTINATION ${CURRENT_PACKAGES_DIR}/share/tensorflow-lite-c)
 file(RENAME ${CURRENT_PACKAGES_DIR}/share/tensorflow-lite-c/TensorflowLiteCConfig.cmake ${CURRENT_PACKAGES_DIR}/share/tensorflow-lite-c/tensorflow-lite-c-config.cmake)
