@@ -8,6 +8,7 @@ vcpkg_from_github(
         REPO tensorflow/tensorflow
         REF "${VERSION}"
         SHA512 d052da4b324f1b5ac9c904ac3cca270cefbf916be6e5968a6835ef3f8ea8c703a0b90be577ac5205edf248e8e6c7ee8817b6a1b383018bb77c381717c6205e05
+        HEAD_REF master
         PATCHES
         	cstdintlib.patch
         	abseiltag.patch
