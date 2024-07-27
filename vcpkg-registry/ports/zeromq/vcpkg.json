@@ -1,0 +1,17 @@
+{
+  "name": "zeromq",
+  "version": "4.3.5",
+  "description": "The ZeroMQ lightweight messaging kernel is a library which extends the standard socket interfaces with features traditionally provided by specialised messaging middleware products",
+  "homepage": "https://github.com/zeromq/libzmq",
+  "license": "Apache-2.0",
+  "dependencies": [
+    {
+      "name": "vcpkg-cmake",
+      "host": true
+    },
+    {
+      "name": "vcpkg-cmake-config",
+      "host": true
+    }
+  ]
+}

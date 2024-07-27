@@ -6,8 +6,8 @@
   "supports": "x64 & (linux | osx)",
   "builtin-baseline": "daa7215f3d68c2a2f2e18c398cb73dab63cda829",
   "dependencies": [
-    "z3",
     "zeromq",
+    "z3",
     "cppzmq",
     "grpc",
     "libevent",
@@ -34,7 +34,6 @@
     "lz4",
     "fastlz",
     "brotli",
-    "zeromq",
     {
       "name": "libiconv",
       "platform": "osx"
@@ -54,9 +53,6 @@
   ],
   "overrides": [
     {
-      "name": "zeromq", "version": "4.3.4", "port-version": 6
-    },
-    {
       "name": "fmt", "version": "9.1.0"
     },
     {
@@ -70,6 +66,9 @@
     },
     {
       "name": "abseil", "version": "20220623.1"
+    },
+    {
+      "name": "zeromq", "version": "4.3.5"
     }
   ]
 }
