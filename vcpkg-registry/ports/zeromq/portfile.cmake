@@ -19,6 +19,23 @@ vcpkg_copy_pdbs()
 
 file(MAKE_DIRECTORY ${CURRENT_PACKAGES_DIR}/debug/share/zeromq)
 
+# Merge /lib/cmake and /debug/lib/cmake and move to /share/zeromq/cmake
+file(INSTALL
+    DESTINATION ${CURRENT_PACKAGES_DIR}/share/zeromq/cmake
+    TYPE DIRECTORY
+    FILES ${CURRENT_PACKAGES_DIR}/lib/cmake/
+)
+
+file(INSTALL
+    DESTINATION ${CURRENT_PACKAGES_DIR}/share/zeromq/cmake
+    TYPE DIRECTORY
+    FILES ${CURRENT_PACKAGES_DIR}/debug/lib/cmake/
+)
+
+# Clean up the old cmake directories
+file(REMOVE_RECURSE ${CURRENT_PACKAGES_DIR}/lib/cmake)
+file(REMOVE_RECURSE ${CURRENT_PACKAGES_DIR}/debug/lib/cmake)
+
 vcpkg_cmake_config_fixup(
     PACKAGE_NAME "zeromq"
     CONFIG_PATH "share/zeromq"
@@ -28,6 +45,10 @@ file(REMOVE_RECURSE ${CURRENT_PACKAGES_DIR}/share/doc
                     ${CURRENT_PACKAGES_DIR}/debug/share
                     ${CURRENT_PACKAGES_DIR}/debug/include
 )
+
+if(VCPKG_LIBRARY_LINKAGE STREQUAL "static")
+    file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/bin" "${CURRENT_PACKAGES_DIR}/debug/bin")
+endif()
 
 
 if(EXISTS ${SOURCE_PATH}/LICENSE)
