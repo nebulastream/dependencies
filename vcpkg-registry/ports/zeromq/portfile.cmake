@@ -11,17 +11,18 @@ vcpkg_from_github(
 vcpkg_cmake_configure(
     SOURCE_PATH "${SOURCE_PATH}"
     OPTIONS
+        -DBUILD_SHARED_LIBS=OFF
         ${FEATURE_OPTIONS}
 )
 
 vcpkg_cmake_install()
 vcpkg_copy_pdbs()
 
-# Ensure the directories exist
+# ensure the directories exist
 file(MAKE_DIRECTORY ${CURRENT_PACKAGES_DIR}/share/zeromq/cmake)
 file(MAKE_DIRECTORY ${CURRENT_PACKAGES_DIR}/debug/share/zeromq/cmake)
 
-# Move CMake files to the correct location
+# move CMake files to the correct location
 file(GLOB_RECURSE RELEASE_CMAKE_FILES "${CURRENT_PACKAGES_DIR}/lib/cmake/*")
 file(GLOB_RECURSE DEBUG_CMAKE_FILES "${CURRENT_PACKAGES_DIR}/debug/lib/cmake/*")
 
@@ -41,16 +42,15 @@ foreach(FILE ${DEBUG_CMAKE_FILES})
     )
 endforeach()
 
-# Clean up the old cmake directories
+# clean up the old cmake directories
 file(REMOVE_RECURSE ${CURRENT_PACKAGES_DIR}/lib/cmake)
 file(REMOVE_RECURSE ${CURRENT_PACKAGES_DIR}/debug/lib/cmake)
 
-# Fix up the package configuration
 vcpkg_cmake_config_fixup(
     CONFIG_PATH share/zeromq/cmake
 )
 
-# Clean up unnecessary directories
+# clean up unnecessary directories
 file(REMOVE_RECURSE ${CURRENT_PACKAGES_DIR}/share/doc
                     ${CURRENT_PACKAGES_DIR}/debug/share/doc
                     ${CURRENT_PACKAGES_DIR}/debug/include)
@@ -59,6 +59,7 @@ if(VCPKG_LIBRARY_LINKAGE STREQUAL "static")
     file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/bin" "${CURRENT_PACKAGES_DIR}/debug/bin")
 endif()
 
+# check if the licence file exists
 if(EXISTS ${SOURCE_PATH}/LICENSE)
     file(INSTALL
         DESTINATION ${CURRENT_PACKAGES_DIR}/share/zeromq
@@ -70,4 +71,25 @@ else()
 endif()
 
 file(INSTALL ${SOURCE_PATH}/LICENSE DESTINATION ${CURRENT_PACKAGES_DIR}/share/${PORT} RENAME copyright)
+
+# debugging steps to verify file locations
+message(STATUS "Verifying symbolic links and installation paths")
+
+execute_process(COMMAND ls -l ${CURRENT_PACKAGES_DIR}/lib
+    OUTPUT_VARIABLE LIB_DIR_CONTENTS)
+message(STATUS "Contents of lib directory:\n${LIB_DIR_CONTENTS}")
+
+execute_process(COMMAND ls -l ${CURRENT_PACKAGES_DIR}/debug/lib
+    OUTPUT_VARIABLE DEBUG_LIB_DIR_CONTENTS)
+message(STATUS "Contents of debug/lib directory:\n${DEBUG_LIB_DIR_CONTENTS}")
+
+execute_process(COMMAND ls -l ${CURRENT_PACKAGES_DIR}/share/zeromq/cmake
+    OUTPUT_VARIABLE SHARE_CMAKE_DIR_CONTENTS
+    ERROR_VARIABLE SHARE_CMAKE_DIR_ERROR
+    RESULT_VARIABLE SHARE_CMAKE_DIR_RESULT)
+if (NOT SHARE_CMAKE_DIR_RESULT EQUAL 0)
+    message(WARNING "Contents of share/zeromq/cmake directory:\n${SHARE_CMAKE_DIR_ERROR}")
+else()
+    message(STATUS "Contents of share/zeromq/cmake directory:\n${SHARE_CMAKE_DIR_CONTENTS}")
+endif()
 
