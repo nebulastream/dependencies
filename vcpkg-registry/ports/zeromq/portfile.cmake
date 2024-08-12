@@ -8,18 +8,20 @@ vcpkg_from_github(
     HEAD_REF master
 )
 
-string(COMPARE EQUAL "${VCPKG_LIBRARY_LINKAGE}" "static" BUILD_STATIC)
-
 vcpkg_cmake_configure(
     SOURCE_PATH "${SOURCE_PATH}"
     OPTIONS
         -DBUILD_SHARED_LIBS=OFF
-        -DBUILD_STATIC=${BUILD_STATIC}
-        ${FEATURE_OPTIONS}
+        -DBUILD_STATIC=ON
 )
 
 vcpkg_cmake_install()
 vcpkg_copy_pdbs()
+
+# remove the debug shared library if it exists
+file(REMOVE "${CURRENT_PACKAGES_DIR}/debug/lib/libzmq.so")
+file(REMOVE "${CURRENT_PACKAGES_DIR}/debug/lib/libzmq.so.5")
+file(REMOVE "${CURRENT_PACKAGES_DIR}/debug/lib/libzmq.so.5.2.5")
 
 # ensure the directories exist
 file(MAKE_DIRECTORY ${CURRENT_PACKAGES_DIR}/share/zeromq/cmake)
@@ -59,6 +61,17 @@ file(REMOVE_RECURSE ${CURRENT_PACKAGES_DIR}/share/doc
                     ${CURRENT_PACKAGES_DIR}/debug/share
                     ${CURRENT_PACKAGES_DIR}/debug/include)
 
+# remove shared libraries if generated, to avoid accidental usage
+if (EXISTS "${CURRENT_PACKAGES_DIR}/lib/libzmq.so")
+    file(REMOVE "${CURRENT_PACKAGES_DIR}/lib/libzmq.so")
+endif()
+if (EXISTS "${CURRENT_PACKAGES_DIR}/lib/libzmq.so.5")
+    file(REMOVE "${CURRENT_PACKAGES_DIR}/lib/libzmq.so.5")
+endif()
+if (EXISTS "${CURRENT_PACKAGES_DIR}/lib/libzmq.so.5.2.5")
+    file(REMOVE "${CURRENT_PACKAGES_DIR}/lib/libzmq.so.5.2.5")
+endif()
+
 if(VCPKG_LIBRARY_LINKAGE STREQUAL "static")
     file(REMOVE_RECURSE "${CURRENT_PACKAGES_DIR}/bin" "${CURRENT_PACKAGES_DIR}/debug/bin")
 endif()
@@ -75,6 +88,11 @@ else()
 endif()
 
 file(INSTALL ${SOURCE_PATH}/LICENSE DESTINATION ${CURRENT_PACKAGES_DIR}/share/${PORT} RENAME copyright)
+
+# double-check build artifacts
+message(STATUS "Contents of lib directory after installation:")
+execute_process(COMMAND ls -l "${CURRENT_PACKAGES_DIR}/lib" OUTPUT_VARIABLE LIB_DIR_CONTENTS)
+message(STATUS "${LIB_DIR_CONTENTS}")
 
 # debugging steps to verify file locations
 message(STATUS "Verifying symbolic links and installation paths")
