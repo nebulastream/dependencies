@@ -8,10 +8,13 @@ vcpkg_from_github(
     HEAD_REF master
 )
 
+string(COMPARE EQUAL "${VCPKG_LIBRARY_LINKAGE}" "static" BUILD_STATIC)
+
 vcpkg_cmake_configure(
     SOURCE_PATH "${SOURCE_PATH}"
     OPTIONS
         -DBUILD_SHARED_LIBS=OFF
+        -DBUILD_STATIC=${BUILD_STATIC}
         ${FEATURE_OPTIONS}
 )
 
@@ -53,6 +56,7 @@ vcpkg_cmake_config_fixup(
 # clean up unnecessary directories
 file(REMOVE_RECURSE ${CURRENT_PACKAGES_DIR}/share/doc
                     ${CURRENT_PACKAGES_DIR}/debug/share/doc
+                    ${CURRENT_PACKAGES_DIR}/debug/share
                     ${CURRENT_PACKAGES_DIR}/debug/include)
 
 if(VCPKG_LIBRARY_LINKAGE STREQUAL "static")
