@@ -25,8 +25,8 @@ RUN cd Python-2.7.18 && ./configure --enable-optimizations && make altinstall
 RUN ln -s "/usr/local/bin/python2.7" "/usr/bin/python2"
 
 RUN rm -f /usr/bin/g++
-RUN apt-get install -y g++-14
-RUN ln -s /usr/bin/g++-14 /usr/bin/g++
+RUN apt-get install -y g++-11
+RUN ln -s /usr/bin/g++-11 /usr/bin/g++
 RUN g++ --version
 
 ADD ./entrypoint-build.sh /entrypoint.sh
