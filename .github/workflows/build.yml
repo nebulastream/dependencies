@@ -104,7 +104,7 @@ jobs:
           files: |
             nes-dependencies-${{ steps.vars.outputs.tag }}-${{ env.VCPKG_DEP_LIST }}-${{ matrix.osversion }}-nes.7z
       - name: Upload GitHub Actions artifact of vcpkg build logs
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         if: failure()
         id: uploadlogs
         with:
@@ -178,7 +178,7 @@ jobs:
           files: |
             nes-dependencies-${{ steps.vars.outputs.tag }}-${{ env.VCPKG_DEP_LIST }}-nes.7z
       - name: Upload GitHub Actions artifact of vcpkg build logs
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         if: failure()
         id: uploadlogs
         with:
