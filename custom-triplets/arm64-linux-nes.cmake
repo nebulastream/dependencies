@@ -36,3 +36,7 @@ endif()
 if (PORT STREQUAL oatpp)
 	set(VCPKG_LIBRARY_LINKAGE static)
 endif()
+
+if (PORT STREQUAL zeromq)
+	set(VCPKG_LIBRARY_LINKAGE static)
+endif()

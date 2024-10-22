@@ -7,7 +7,7 @@ vcpkg_from_github(
 		nesfolly.patch             
                 arm-compilation.patch
                 follyconfig.patch
-                malloc.patch
+                remove-boost.patch
 )
 
 vcpkg_cmake_configure(

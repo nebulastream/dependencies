@@ -1,11 +1,10 @@
 {
-  "name": "nesfolly",
+  "name": "folly",
   "version-string": "2021.10.11.00",
   "description": "An open-source C++ library developed and used at Facebook. The library is UNSTABLE on Windows",
   "homepage": "https://github.com/facebook/folly",
   "supports": "x64 | (arm64 & !windows)",
   "dependencies": [
-    "boost-mpl",
     {
       "name": "vcpkg-cmake",
       "host": true

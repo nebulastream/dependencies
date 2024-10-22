@@ -14,12 +14,18 @@ jobs:
       fail-fast: false
       matrix:
         include:
+          - osversion: ubuntu-24.04
+            arch: "x64"
+            force_system_binary: 0
           - osversion: ubuntu-20.04
             arch: "x64"
             force_system_binary: 0
           - osversion: ubuntu-22.04
             arch: "x64"
             force_system_binary: 0
+          - osversion: ubuntu-24.04
+            arch: "arm64"
+            force_system_binary: 1
           - osversion: ubuntu-20.04
             arch: "arm64"
             force_system_binary: 1
@@ -98,7 +104,7 @@ jobs:
           files: |
             nes-dependencies-${{ steps.vars.outputs.tag }}-${{ env.VCPKG_DEP_LIST }}-${{ matrix.osversion }}-nes.7z
       - name: Upload GitHub Actions artifact of vcpkg build logs
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         if: failure()
         id: uploadlogs
         with:
@@ -172,7 +178,7 @@ jobs:
           files: |
             nes-dependencies-${{ steps.vars.outputs.tag }}-${{ env.VCPKG_DEP_LIST }}-nes.7z
       - name: Upload GitHub Actions artifact of vcpkg build logs
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         if: failure()
         id: uploadlogs
         with:

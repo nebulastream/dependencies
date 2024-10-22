@@ -5,6 +5,10 @@ set(VCPKG_LIBRARY_LINKAGE static)
 set(VCPKG_CMAKE_SYSTEM_NAME Darwin)
 set(VCPKG_OSX_ARCHITECTURES x86_64)
 
+# use C++20 for updated packages
+set(VCPKG_CXX_FLAGS -std=c++2a)
+set(VCPKG_C_FLAGS "")
+
 
 if (PORT STREQUAL paho-mqtt)
 	set(VCPKG_LIBRARY_LINKAGE static)
